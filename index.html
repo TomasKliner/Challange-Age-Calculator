@@ -133,8 +133,8 @@
 </head>
 
 <body>
-  <form>
-    <div class="form-top">
+  <form >
+    <div class="form-top" >
       <label>
         <p>DAY</p>
         <input type="text" name="day" placeholder="DD">
@@ -151,7 +151,7 @@
     <div id="submit-spacer">
       <span id="spacer">
       </span>
-      <button type="submit">
+      <button onclick="calculateAge">
         <img src="/assets/images/icon-arrow.svg" alt="submit icon" />
       </button>
     </div>
@@ -170,13 +170,34 @@
       </div>
     </div>
   </form>
-
   <div class="attribution">
     Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>.
     Coded by <a href="https://kliner.eu/">Tomas Kliner</a>.
   </div>
-</body>
+  <script>
+    function calculateAge(e) {
+      e.preventDefault();
+      const date = new Date();
+      const currentYear = date.getFullYear();
+      const currentMonth = date.getMonth() + 1;
+      const currentDay = date.getDate();
 
+      const birthYear = document.querySelector('input[name="year"]').value;
+      const birthMonth = document.querySelector('input[name="month"]').value;
+      const birthDay = document.querySelector('input[name="day"]').value;
+
+      const years = currentYear - birthYear;
+      const months = currentMonth - birthMonth;
+      const days = currentDay - birthDay;
+
+      const bottom = document.querySelector('.bottom');
+      bottom.children[0].children[0].textContent = years;
+      bottom.children[1].children[0].textContent = months;
+      bottom.children[2].children[0].textContent = days;
+
+    }
+  </script>
+</body>
 </html>
 
 <!-- # Front-end Style Guide
