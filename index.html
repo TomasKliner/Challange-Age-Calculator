@@ -1,37 +1,164 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
 
   <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
-  
+
   <title>Frontend Mentor | Age calculator app</title>
 
   <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
   <style>
-    .attribution { font-size: 11px; text-align: center; }
-    .attribution a { color: hsl(228, 45%, 44%); }
+    .attribution {
+      display: fixed;
+      bottom: 0;
+      left: 1/2;
+      transform: translateX(-50%);
+      font-size: 11px;
+    }
+
+    .attribution a {
+      color: hsl(228, 45%, 44%);
+    }
+
+    .form-top {
+      display: flex;
+      justify-content: space-between;
+
+      &>label {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        text-align: start;
+        width: 100%;
+        gap: 0.5rem;
+
+        &>figure {
+          font-size: 1rem;
+          font-weight: 700;
+          margin-bottom: 0.5rem;
+          text-align: start;
+          color: rgb(107, 107, 107);
+        }
+
+        &>input {
+          width: 8rem;
+          padding: 0.5rem;
+          border: 1px solid rgb(207, 207, 207);
+          border-radius: 0.5rem;
+          font-size: 1.5rem;
+          font-weight: 700;
+          text-align: start;
+        }
+      }
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: rgb(160, 160, 160);
+    }
+
+    form {
+      background-color: white;
+      width: fit-content;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+      border-radius: 0.9rem;
+      border-bottom-right-radius: 7rem;
+      box-shadow: 0px 0px 10px 0px rgba(134, 134, 134, 0.75)
+    }
+
+    #spacer {
+      margin: 1rem 0;
+      height: 0.1rem;
+      width: 100%;
+      background-color: rgb(207, 207, 207);
+    }
+
+    button {
+      background-color: rgb(24, 24, 24);
+      border: none;
+      border-radius: 100%;
+      padding: 1rem;
+      cursor: pointer;
+
+      &:hover {
+        background-color: rgb(63, 63, 63);
+      }
+    }
+
+    #submit-spacer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+    }
+
+    .bottom {
+      display: flex;
+      justify-content: space-between;
+      flex-direction: column;
+      width: 100%;
+      font-size: 5rem;
+      font-weight: 900;
+
+      &>div>span:first-child {
+        color: rgb(153, 0, 255);
+      }
+    }
   </style>
 </head>
+
 <body>
+  <form>
+    <div class="form-top">
+      <label>
+        <figure>DAY</figure>
+        <input type="text" name="day" placeholder="DD">
+      </label>
+      <label>
+        <figure>MONTH</figure>
+        <input type="text" name="month" placeholder="MM">
+      </label>
+      <label>
+        <figure>YEAR</figure>
+        <input type="text" name="year" placeholder="YYYY">
+      </label>
+    </div>
+    <div id="submit-spacer">
+      <span id="spacer">
+      </span>
+      <button type="submit">
+        <img src="/assets/images/icon-arrow.svg" alt="submit icon" />
+      </button>
+    </div>
+    <div class="bottom">
+      <div>
+        <span>--</span>
+        <span>years</span>
+      </div>
+      <div>
+        <span>--</span>
+        <span>months</span>
+      </div>
+      <div>
+        <span>--</span>
+        <span>days</span>
+      </div>
+    </div>
+  </form>
 
-  Day
-  DD
-
-  Month
-  MM
-
-  Year
-  YYYY
-
-  -- years
-  -- months
-  -- days
-  
   <div class="attribution">
-    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
-    Coded by <a href="#">Your Name Here</a>.
+    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>.
+    Coded by <a href="https://kliner.eu/">Tomas Kliner</a>.
   </div>
 </body>
+
 </html>
