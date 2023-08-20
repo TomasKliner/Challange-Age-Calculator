@@ -17,14 +17,16 @@
 
     body {
       &>#main {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
       }
+
       margin:0;
       background-color: rgb(160, 160, 160);
-      font-family: 'Poppins', sans-serif;
+      font-family: 'Poppins',
+      sans-serif;
       color: hsl(0, 0%, 8%);
       --purple: hsl(259, 100%, 65%);
     }
@@ -154,7 +156,7 @@
       <div id="submit-spacer">
         <span id="spacer">
         </span>
-        <button onclick="calculateAge">
+        <button type="submit">
           <img src="/assets/images/icon-arrow.svg" alt="submit icon" />
         </button>
       </div>
@@ -183,13 +185,37 @@
         const currentMonth = date.getMonth() + 1;
         const currentDay = date.getDate();
 
-        const birthYear = document.querySelector('input[name="year"]').value;
-        const birthMonth = document.querySelector('input[name="month"]').value;
-        const birthDay = document.querySelector('input[name="day"]').value;
+        const birthYear = parseInt(document.querySelector('input[name="year"]').value);
+        const birthMonth = parseInt(document.querySelector('input[name="month"]').value);
+        const birthDay = parseInt(document.querySelector('input[name="day"]').value);
 
-        const years = currentYear - birthYear;
-        const months = currentMonth - birthMonth;
-        const days = currentDay - birthDay;
+
+        if (!checkDateFormat(birthYear, birthMonth, birthDay)) {
+          return;
+        }
+
+        let years = currentYear - birthYear;
+        let months = currentMonth - birthMonth;
+        let days = currentDay - birthDay;
+
+
+        if (months < 0) {
+          years--;
+          months += 12;
+        }
+
+        if (days < 0) {
+          const daysInLastMonth = new Date(currentYear, currentMonth - 1, 0).getDate();
+          months--;
+          days += daysInLastMonth;
+        }
+
+        if (months > 0 && days < 0) {
+          const daysInLastMonth = new Date(currentYear, currentMonth - 2, 0).getDate();
+          months--;
+          days += daysInLastMonth;
+        }
+
 
         const bottom = document.querySelector('.bottom');
         bottom.children[0].children[0].textContent = years;
@@ -197,6 +223,60 @@
         bottom.children[2].children[0].textContent = days;
       });
 
+      function checkDateFormat(birthYear, birthMonth, birthDay) {
+        const date = new Date();
+        if (!isNumber(birthYear) || !isNumber(birthMonth) || !isNumber(birthDay)) {
+          alert("im pretty sure you dont know how to write numbers :-)");
+          return false;
+        }
+
+        if (birthYear < 1899) {
+          alert("Are you sure you entered a valid year, you would be really old!");
+          return false;
+        }
+        console.log(date.getFullYear());
+        if (birthYear > date.getFullYear()) {
+          alert("We have a time traveler on our hands!, please send me an email, i'd love to ask you some questions! ;-)");
+          return false;
+        }
+
+        if (birthMonth < 1 || birthMonth > 12) {
+          alert("Are you sure you entered a valid month?");
+          return false;
+        }
+        switch (birthMonth) {
+          case 2:
+            if (birthDay < 1 || birthDay > 28 && birthDay !== 29) {
+              alert(`Are you sure your parents didnt lie to you? ${birthMonth} only doesnt have ${birthDay}. day!`);
+              return false;
+            }
+            else if (birthDay === 29) {
+              if ((birthYear % 4 === 0 && (birthYear % 100 !== 0 || birthYear % 400 === 0))) {
+                break;
+              }
+              alert("Are you sure your parents didnt lie to you? you were not born on a leap year!");
+              return false;
+            }
+            break;
+          case 4:
+          case 6:
+          case 9:
+          case 11:
+            if (birthDay < 1 || birthDay > 30) {
+              alert(`Are you sure your parents didnt lie to you? ${birthMonth} only doesnt have ${birthDay}. day!`);
+              return false;
+            }
+            break;
+          default:
+            if (birthDay < 1 || birthDay > 31) {
+              alert(`Are you sure your parents didnt lie to you? ${birthMonth} only doesnt have ${birthDay}. day!`);
+              return false;
+            }
+        }
+
+        return true;
+      }
+      function isNumber(n) { return /^-?[\d.]+(?:e-?\d+)?$/.test(n); }
     </script>
   </div>
   <footer class="attribution">
