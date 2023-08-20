@@ -16,14 +16,16 @@
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;800&display=swap');
 
     body {
+      &>#main {
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
+      }
+      margin:0;
       background-color: rgb(160, 160, 160);
       font-family: 'Poppins', sans-serif;
       color: hsl(0, 0%, 8%);
-
       --purple: hsl(259, 100%, 65%);
     }
 
@@ -31,9 +33,7 @@
       display: fixed;
       bottom: 0;
       left: 1/2;
-      transform: translateX(-50%);
       font-size: 11px;
-      background-color: aqua;
     }
 
     .attribution a {
@@ -133,71 +133,76 @@
 </head>
 
 <body>
-  <form id="form">
-    <div class="form-top">
-      <label>
-        <p>DAY</p>
-        <input type="text" name="day" placeholder="DD">
-      </label>
-      <label>
-        <p>MONTH</p>
-        <input type="text" name="month" placeholder="MM">
-      </label>
-      <label>
-        <p>YEAR</p>
-        <input type="text" name="year" placeholder="YYYY">
-      </label>
-    </div>
-    <div id="submit-spacer">
-      <span id="spacer">
-      </span>
-      <button onclick="calculateAge">
-        <img src="/assets/images/icon-arrow.svg" alt="submit icon" />
-      </button>
-    </div>
-    <div class="bottom">
-      <div>
-        <span>--</span>
-        <span>years</span>
+  <div id="main">
+
+
+    <form id="form">
+      <div class="form-top">
+        <label>
+          <p>DAY</p>
+          <input type="text" name="day" placeholder="DD">
+        </label>
+        <label>
+          <p>MONTH</p>
+          <input type="text" name="month" placeholder="MM">
+        </label>
+        <label>
+          <p>YEAR</p>
+          <input type="text" name="year" placeholder="YYYY">
+        </label>
       </div>
-      <div>
-        <span>--</span>
-        <span>months</span>
+      <div id="submit-spacer">
+        <span id="spacer">
+        </span>
+        <button onclick="calculateAge">
+          <img src="/assets/images/icon-arrow.svg" alt="submit icon" />
+        </button>
       </div>
-      <div>
-        <span>--</span>
-        <span>days</span>
+      <div class="bottom">
+        <div>
+          <span>--</span>
+          <span>years</span>
+        </div>
+        <div>
+          <span>--</span>
+          <span>months</span>
+        </div>
+        <div>
+          <span>--</span>
+          <span>days</span>
+        </div>
       </div>
-    </div>
-  </form>
-  <div class="attribution">
+    </form>
+
+    <script>
+      const form = document.querySelector("#form");
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        const date = new Date();
+        const currentYear = date.getFullYear();
+        const currentMonth = date.getMonth() + 1;
+        const currentDay = date.getDate();
+
+        const birthYear = document.querySelector('input[name="year"]').value;
+        const birthMonth = document.querySelector('input[name="month"]').value;
+        const birthDay = document.querySelector('input[name="day"]').value;
+
+        const years = currentYear - birthYear;
+        const months = currentMonth - birthMonth;
+        const days = currentDay - birthDay;
+
+        const bottom = document.querySelector('.bottom');
+        bottom.children[0].children[0].textContent = years;
+        bottom.children[1].children[0].textContent = months;
+        bottom.children[2].children[0].textContent = days;
+      });
+
+    </script>
+  </div>
+  <footer class="attribution">
     Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>.
     Coded by <a href="https://kliner.eu/">Tomas Kliner</a>.
-  </div>
-  <script>
-    const form = document.querySelector("#form");
-    form.addEventListener("submit", function (event) {
-      event.preventDefault();
-      const date = new Date();
-      const currentYear = date.getFullYear();
-      const currentMonth = date.getMonth() + 1;
-      const currentDay = date.getDate();
-
-      const birthYear = document.querySelector('input[name="year"]').value;
-      const birthMonth = document.querySelector('input[name="month"]').value;
-      const birthDay = document.querySelector('input[name="day"]').value;
-
-      const years = currentYear - birthYear;
-      const months = currentMonth - birthMonth;
-      const days = currentDay - birthDay;
-
-      const bottom = document.querySelector('.bottom');
-      bottom.children[0].children[0].textContent = years;
-      bottom.children[1].children[0].textContent = months;
-      bottom.children[2].children[0].textContent = days;
-    });
-
-  </script>
+  </footer>
 </body>
 
 </html>
